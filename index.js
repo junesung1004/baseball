@@ -2,23 +2,47 @@ let text1 = document.querySelector("#text1");
 let text2 = document.querySelector("#text2");
 let text3 = document.querySelector("#text3");
 
+let p1 = document.querySelector(".hint1");
+let p2 = document.querySelector(".hint2");
+let p3 = document.querySelector(".hint3");
+
 let input = document.querySelectorAll("input");
+
+let result = document.querySelector(".result-cont");
 
 let checkBtn = document.querySelector(".check-btn");
 let hintBtn = document.querySelector(".hint-btn");
 let deleteBtns = document.querySelectorAll(".delete-btn");
 let buttons = document.querySelectorAll(".btn");
 
-//
+// 입력 버튼 로직
 const clickBtnEvent = (value) => {
-  //첫번째 입력창이 비어있으면 text1.value 값을 적용해! or text2 or text3 마찬가지!
+  // 첫번째 입력창이 비어있으면 text1.value 값을 적용
   if (text1.value === "") {
     text1.value = value;
-  } else if (text2.value === "") {
+  }
+  // 두번째 입력창이 비어있으면 text2.value 값을 적용
+  else if (text2.value === "" && text1.value !== value) {
     text2.value = value;
-  } else if (text3.value === "") {
+  }
+  // 세번째 입력창이 비어있으면 text3.value 값을 적용
+  else if (
+    text3.value === "" &&
+    text1.value !== value &&
+    text2.value !== value
+  ) {
     text3.value = value;
-  } else {
+  }
+  // 이미 입력된 값과 동일한 값을 입력하려 할 때
+  else if (
+    text1.value === value ||
+    text2.value === value ||
+    text3.value === value
+  ) {
+    alert("같은 값을 입력할 수 없습니다.");
+  }
+  // 모든 입력창이 값으로 채워져 있을 때
+  else {
     alert("입력값을 전부 입력했습니다.");
   }
 };
@@ -50,11 +74,11 @@ for (let i = 0; i < 3; i++) {
   //console.log(select);
   if (randomNum.indexOf(select) === -1) {
     /*
-      indexOf() 문자열들 중에서 특정한 위치의 문자열을 찾고 검색된 문자열의 위치를
-      반환하는 메서드
-      보통 인덱스 번호를 찾는 메서드
-      값이 없을 경우 -1을 반환하기 때문에 중복되는 값을 찾을 때 사용하는 공식
-      */
+        indexOf() 문자열들 중에서 특정한 위치의 문자열을 찾고 검색된 문자열의 위치를
+        반환하는 메서드
+        보통 인덱스 번호를 찾는 메서드
+        값이 없을 경우 -1을 반환하기 때문에 중복되는 값을 찾을 때 사용하는 공식
+        */
     randomNum.push(select);
   } else {
     i--;
@@ -67,12 +91,21 @@ for (let i = 0; i < 3; i++) {
 // 인풋값과 랜덤값과 순서 모두 같으면 skrike를 console창에 출력해주고
 // 인풋값과 랜덤값은 같지만 순서가 틀리면 ball을 console창에 출력해주는 코드
 // 3개 다 틀리면 out 이라는 console창에다 출력해주는 코드
+let count = 0;
 const checkAnswer = (e) => {
   e.preventDefault();
-  console.log(e);
+  //console.log(e);
   const inputValues = [text1.value, text2.value, text3.value];
   let strikes = 0;
   let ball = 0;
+  let out = 0;
+
+  if (count >= 9) {
+    return;
+  }
+  count++;
+
+  //console.log(randomNum);
 
   for (let i = 0; i < inputValues.length; i++) {
     if (
@@ -83,14 +116,42 @@ const checkAnswer = (e) => {
       alert("입력창에 값을 넣어주세요.");
       break;
     }
+    //console.log(inputValues[1]);
+    //console.log(randomNum[1]);
 
-    if (inputValues[0] === randomNum[0]) {
-      alert("정답");
+    if (parseInt(inputValues[i]) === randomNum[i]) {
+      strikes++;
+      //p1.textContent = `strike : ${strikes}`;
+      input[i].style.fontWeight = "bold";
+      input[i].style.color = "saddlebrown";
+      input[i].style.fontSize = "22px";
+    } else if (randomNum.includes(parseInt(inputValues[i]))) {
+      ball++;
+      //p2.textContent = `ball : ${ball}`;
+      input[i].style.fontWeight = "bold";
+      input[i].style.color = "blue";
+      input[i].style.fontSize = "22px";
+      //console.log("ball :", ball);
     } else {
-      alert("오탑");
+      out++;
+      //p3.textContent = `out : ${out}`;
+      input[i].style.fontWeight = "bold";
+      input[i].style.color = "red";
+      input[i].style.fontSize = "22px";
+      //console.log("out");
     }
   }
 
+  const p = document.createElement("p");
+  p.textContent = `strike : ${strikes}번, ball : ${ball}번, out: ${out}번`;
+  result.appendChild(p);
+
+  if (strikes !== 3) {
+    alert(`남은 기회: ${9 - count}번`);
+  } else if (strikes === 3) {
+    alert("오와!!! 당신은 천재입니다. Game Clear");
+    window.location.reload();
+  }
   // 첫번째 입력값과 첫번째 생성된 랜덤한 숫자가 값이 같고 and 위치가 같으면 strik 를 외쳐줘 콘솔창에
   // 입력한 값이 생성된 랜덤한 숫자가 같지만 위치가 틀리면 ball을 콘솔창에 외쳐줘
   // 입력값이랑 생성된 랜덤한숫자가 모두 틀릴 시 out 이라고 콘솔창에 외쳐줘
@@ -101,6 +162,7 @@ checkBtn.addEventListener("click", checkAnswer);
 //힌트 버튼을 눌렀을때 생성된 랜덤 번호 4개를 알려줘!
 const clickHintEVENT = (e) => {
   e.preventDefault();
+  console.log(randomNum);
   alert(randomNum);
 };
 
