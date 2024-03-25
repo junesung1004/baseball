@@ -12,6 +12,7 @@ let result = document.querySelector(".result-cont");
 
 let checkBtn = document.querySelector(".check-btn");
 let hintBtn = document.querySelector(".hint-btn");
+let resetBtn = document.querySelector(".reset-btn");
 let deleteBtns = document.querySelectorAll(".delete-btn");
 let buttons = document.querySelectorAll(".btn");
 
@@ -41,23 +42,24 @@ const clickBtnEvent = (value) => {
 };
 
 // 버튼을 눌렀을때 한번씩 반복해줘
-buttons.forEach((i) => {
-  i.addEventListener("click", () => {
-    clickBtnEvent(i.textContent); // 클릭한 버튼의 textContent를 값으로 전달합니다.
+buttons.forEach((el) => {
+  el.addEventListener("click", () => {
+    clickBtnEvent(el.textContent); // 클릭한 버튼의 textContent를 값으로 전달합니다.
   });
 });
 
 //키보드로 입력할 때 입력을 못하게 하는 코드
 const keydownInputEvent = (e) => {
+  console.log(e.target);
+  e.preventDefault();
   if (e.target.value === "") {
-    e.preventDefault();
     alert("버튼을 클릭하여 입력해주세요.");
   }
 };
 
-input.forEach((i) => {
-  i.addEventListener("keydown", keydownInputEvent);
-});
+// input.forEach((i) => {
+//   i.addEventListener("keydown", keydownInputEvent);
+// });
 
 //랜덤 숫자 3가지 뽑기
 let randomNum = [];
@@ -85,9 +87,7 @@ for (let i = 0; i < 3; i++) {
 // 인풋값과 랜덤값은 같지만 순서가 틀리면 ball을 console창에 출력해주는 코드
 // 3개 다 틀리면 out 이라는 console창에다 출력해주는 코드
 let count = 0;
-const checkAnswer = (e) => {
-  e.preventDefault();
-  //console.log(e);
+const checkAnswer = () => {
   const inputValues = [text1.value, text2.value, text3.value];
   let strikes = 0;
   let ball = 0;
@@ -106,8 +106,8 @@ const checkAnswer = (e) => {
       inputValues[1] === "" ||
       inputValues[2] === ""
     ) {
-      alert("입력창에 값을 넣어주세요.");
-      break;
+      alert("입력창에 값을 모두 넣어주세요.");
+      return;
     }
     //console.log(inputValues[1]);
     //console.log(randomNum[1]);
@@ -153,17 +153,15 @@ const checkAnswer = (e) => {
 checkBtn.addEventListener("click", checkAnswer);
 
 //힌트 버튼을 눌렀을때 생성된 랜덤 번호 4개를 알려줘!
-const clickHintEVENT = (e) => {
-  e.preventDefault();
+const clickHintEVENT = () => {
   console.log(randomNum);
   alert(randomNum);
 };
 
-hintBtn.addEventListener("click", clickHintEVENT);
+// hintBtn.addEventListener("click", clickHintEVENT);
 
 // delete버튼 눌렀을때 값 초기화 기능
 const clickDeleteEvent = (e) => {
-  e.preventDefault();
   const inputField = e.target.parentElement.querySelector("input");
   if (inputField.value === "") {
     alert("입력값이 비어있습니다.");
@@ -175,3 +173,8 @@ const clickDeleteEvent = (e) => {
 deleteBtns.forEach((btn) => {
   btn.addEventListener("click", clickDeleteEvent);
 });
+
+//리셋 버튼 눌렀을때 처음부터 다시 시작하는 코드!
+const clickResetEvent = () => {
+  window.location.reload();
+};

@@ -11,26 +11,40 @@
     <h1>스테이지어스 야구 게임!😁</h1>
 
     <!-- 전송 폼 -->
-    <form action="">
-      <div class="input-cont">
-        <input type="text" id="text1" placeholder="1번째 번호" />
-        <label for="text1">첫번째 번호 입력칸</label>
-        <button class="delete-btn">delete</button>
-      </div>
-      <div class="input-cont">
-        <input type="text" id="text2" placeholder="2번째 번호" />
-        <label for="text2">두번째 번호 입력칸</label>
-        <button class="delete-btn">delete</button>
-      </div>
-      <div class="input-cont">
-        <input type="text" id="text3" placeholder="3번째 번호" />
-        <label for="text3">세번째 번호 입력칸</label>
-        <button class="delete-btn">delete</button>
-      </div>
-      <button class="check-btn">check</button>
-      <button class="hint-btn">hint</button>
-      <button class="reset-btn">reset</button>
-    </form>
+
+    <div class="input-cont">
+      <input
+        type="text"
+        id="text1"
+        placeholder="1번째 번호"
+        onkeydown="keydownInputEvent(event)"
+      />
+      <label for="text1">첫번째 번호 입력칸</label>
+      <button class="delete-btn">delete</button>
+    </div>
+    <div class="input-cont">
+      <input
+        type="text"
+        id="text2"
+        placeholder="2번째 번호"
+        onkeydown="keydownInputEvent(event)"
+      />
+      <label for="text2">두번째 번호 입력칸</label>
+      <button class="delete-btn">delete</button>
+    </div>
+    <div class="input-cont">
+      <input
+        type="text"
+        id="text3"
+        placeholder="3번째 번호"
+        onkeydown="keydownInputEvent(event)"
+      />
+      <label for="text3">세번째 번호 입력칸</label>
+      <button class="delete-btn">delete</button>
+    </div>
+    <button class="check-btn">check</button>
+    <button class="hint-btn" onclick="clickHintEVENT(event)">hint</button>
+    <button class="reset-btn" onclick="clickResetEvent()">reset</button>
 
     <p class="hint">스트라이크 : 갈색</p>
     <p class="hint">볼 : 파란색</p>
