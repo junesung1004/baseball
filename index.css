@@ -73,7 +73,8 @@ h1 {
 
 .check-btn,
 .hint-btn,
-.delete-btn {
+.delete-btn,
+.reset-btn {
   border: none;
   padding: 15px 30px;
   border-radius: 20px;
@@ -86,7 +87,8 @@ h1 {
 
 .check-btn:hover,
 .hint-btn:hover,
-.delete-btn:hover {
+.delete-btn:hover,
+.reset-btn:hover {
   background-color: rgba(237, 137, 154, 1);
   color: black;
   cursor: pointer;

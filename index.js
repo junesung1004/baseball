@@ -17,28 +17,21 @@ let buttons = document.querySelectorAll(".btn");
 
 // 입력 버튼 로직
 const clickBtnEvent = (value) => {
+  const inputValues = [text1.value, text2.value, text3.value];
   // 첫번째 입력창이 비어있으면 text1.value 값을 적용
-  if (text1.value === "") {
+  if (inputValues[0] === "") {
     text1.value = value;
   }
-  // 두번째 입력창이 비어있으면 text2.value 값을 적용
-  else if (text2.value === "" && text1.value !== value) {
+  // 두번째 비어있는 입력창에 값을 채웁니다.
+  else if (inputValues[1] === "" && inputValues.indexOf(value) === -1) {
     text2.value = value;
   }
-  // 세번째 입력창이 비어있으면 text3.value 값을 적용
-  else if (
-    text3.value === "" &&
-    text1.value !== value &&
-    text2.value !== value
-  ) {
+  // 세번째 비어있는 입력창에 값을 채웁니다.
+  else if (inputValues[2] === "" && inputValues.indexOf(value) === -1) {
     text3.value = value;
   }
   // 이미 입력된 값과 동일한 값을 입력하려 할 때
-  else if (
-    text1.value === value ||
-    text2.value === value ||
-    text3.value === value
-  ) {
+  else if (inputValues.indexOf(value) !== -1) {
     alert("같은 값을 입력할 수 없습니다.");
   }
   // 모든 입력창이 값으로 채워져 있을 때
@@ -172,6 +165,10 @@ hintBtn.addEventListener("click", clickHintEVENT);
 const clickDeleteEvent = (e) => {
   e.preventDefault();
   const inputField = e.target.parentElement.querySelector("input");
+  if (inputField.value === "") {
+    alert("입력값이 비어있습니다.");
+    return;
+  }
   inputField.value = "";
 };
 
