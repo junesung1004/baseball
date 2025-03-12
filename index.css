@@ -33,6 +33,12 @@ h1 {
   cursor: pointer;
 }
 
+.hint-content {
+  margin-bottom: 10px;
+  color: black;
+  font-weight: 600;
+}
+
 .btn-wrap {
   margin-top: 50px;
   display: flex;

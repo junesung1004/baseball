@@ -153,7 +153,19 @@ const checkAnswer = () => {
 checkBtn.addEventListener("click", checkAnswer);
 
 //힌트 버튼을 눌렀을때 생성된 랜덤 번호 4개를 알려줘!
-const clickHintEVENT = () => {
+// 힌트 코드
+const clickHintEvent = () => {
+  let additionalNumber;
+
+  while (true) {
+    additionalNumber = Math.floor(Math.random() * 9 + 1); // 1~9 랜덤 숫자를 생성
+    if (randomNum.indexOf(additionalNumber) === -1) {
+      break; // 이미 랜덤 숫자 배열에 있는 숫자는 제외
+    }
+  }
+
+  randomNum.push(additionalNumber); // 추가적인 랜덤 숫자를 배열에 추가
+
   console.log(randomNum);
   alert(randomNum);
 };

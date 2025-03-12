@@ -10,6 +10,27 @@
     <!-- 제목 -->
     <h1>스테이지어스 야구 게임!😁</h1>
 
+    <div class="hint-content">
+      <p>
+        <marquee behavior="scrol">
+          중복되지 않는
+          <span style="color: rgb(192, 32, 138)">3 자리</span>
+          수를 입력하세요
+        </marquee>
+      </p>
+      <p>
+        <marquee behavior="scrol">
+          자리와 수를 맞히면
+          <span style="color: saddlebrown">스트라이크.</span> , 수만 맞히면
+          <span style="color: blue">볼</span> 로 표시됩니다. 숫자를 모두 맞히면
+          홈런!
+        </marquee>
+      </p>
+      <p>
+        <marquee> 기회는 총 9번 주어집니다! </marquee>
+      </p>
+    </div>
+
     <!-- 전송 폼 -->
 
     <div class="input-cont">
@@ -43,7 +64,7 @@
       <button class="delete-btn">delete</button>
     </div>
     <button class="check-btn">check</button>
-    <button class="hint-btn" onclick="clickHintEVENT(event)">hint</button>
+    <button class="hint-btn" onclick="clickHintEvent(event)">hint</button>
     <button class="reset-btn" onclick="clickResetEvent()">reset</button>
 
     <p class="hint">스트라이크 : 갈색</p>
